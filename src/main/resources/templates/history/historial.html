@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Historial de Empleados</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<!-- ✅ Aquí se inserta el fragmento -->
+<div th:replace="~{fragments/menu :: menu}"></div>
+
+<div class="container mt-5">
+    <h2>Historial de Empleados</h2>
+
+    <form class="d-flex mb-3" th:action="@{/historial}" method="get">
+        <input type="text" class="form-control me-2" name="filtro" th:value="${filtro}" placeholder="Texto a buscar">
+        <button class="btn btn-primary me-2" type="submit">Buscar</button>
+        <a class="btn btn-danger" th:href="@{/historial}">Limpiar</a>
+    </form>
+
+    <table class="table table-bordered table-striped">
+        <thead class="table-light">
+        <tr>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Puesto</th>
+            <th>Departamento</th>
+            <th>Fecha Inicio</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="e : ${empleados}">
+            <td th:text="${e.firstName}">Nombre</td>
+            <td th:text="${e.lastName}">Apellido</td>
+            <td th:text="${e.job?.jobTitle}">Puesto</td>
+            <td th:text="${e.department?.departmentName}">Departamento</td>
+            <td th:text="${e.hireDate}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
